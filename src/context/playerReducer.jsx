@@ -1,45 +1,28 @@
 import { useReducer } from "react"
 import { playingModes } from "../constants"
 import { INITIAL_STATE, PlayerContext } from "./playerContext"
+import { getSong } from "./utils"
 
 const playerReducer = (state, action) => {
   const {type, payload} = action
 
   switch(type) {
     case "CHANGE_SONG": {
-      const songIndex = state.list.findIndex((song) => song.id === payload)
-      return { ...state, currentSong: state.list[songIndex] }
+      const songIndex = state.playlist.findIndex((song) => song.id === payload)
+      return { ...state, playing: state.playlist[songIndex] }
     }
     case "NEXT_SONG": {
-      const songIndex = state.list.findIndex((song) => song.id === payload)
-      const current = state.list[songIndex]
-      const next = state.list[songIndex + 1]
-      const first = state.list[0]
-
-      if(!next && state.currentMode === 'Not replaying') return { ...state, currentSong: current }
-      if(!next && state.currentMode === 'Replaying all') return { ...state, currentSong: first }
-      if(!next && state.currentMode === 'Replaying one') return { ...state, currentSong: current }
-      if(next && state.currentMode === 'Replaying one') return { ...state, currentSong: current }
-
-      return { ...state, currentSong: next }
+      const playing = getSong({ action: 'NEXT', songId: payload, playlist: state.playlist, playingMode: state.playingMode })
+      return { ...state, playing }
     }
     case "PREV_SONG": {
-      const songIndex = state.list.findIndex((song) => song.id === payload)
-      const current = state.list[songIndex]
-      const prev = state.list[songIndex - 1]
-      const last = state.list[state.list.length - 1]
-
-      if(!prev && state.currentMode === 'Not replaying') return { ...state, currentSong: current }
-      if(!prev && state.currentMode === 'Replaying all') return { ...state, currentSong: last }
-      if(!prev && state.currentMode === 'Replaying one') return { ...state, currentSong: current }
-      if(prev && state.currentMode === 'Replaying one') return { ...state, currentSong: current }
-
-      return { ...state, currentSong: prev }
+      const playing = getSong({ action: 'PREV', songId: payload, playlist: state.playlist, playingMode: state.playingMode })
+      return { ...state, playing }
     }
     case "CHANGE_MODE": {
-      const current = playingModes.findIndex(mode => mode === payload)
-      const next = playingModes[current + 1] || playingModes[0]
-      return { ...state, currentMode: next }
+      const currentMode = playingModes.findIndex(mode => mode === payload)
+      const newMode = playingModes[currentMode + 1] || playingModes[0]
+      return { ...state, playingMode: newMode }
     }
     default:
       throw new Error(`No case for ${type} found in playerReducer.`)
