@@ -5,4 +5,5 @@ export const SongTitle = styled.h3`
   font-weight: 400;
   margin: 0;
   padding: 0;
+  color: ${({ active }) => (active ? "red" : "black")};
 `

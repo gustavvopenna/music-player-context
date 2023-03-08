@@ -1,23 +1,28 @@
 export const songList = [
   {
     id: crypto.randomUUID(),
-    title: 'Song 1',
-    author: 'Author 1'
+    title: 'Safe & Sound',
+    author: 'Capital Cities'
   },
   {
     id: crypto.randomUUID(),
-    title: 'Song 2',
-    author: 'Author 2'
+    title: 'Sorry',
+    author: 'Justin Bieber'
   },
   {
     id: crypto.randomUUID(),
-    title: 'Song 3',
-    author : 'Author 3'
+    title: 'Wake me up',
+    author : 'Avicii'
   },
   {
     id: crypto.randomUUID(),
-    title: 'Song 4',
-    author: 'Author 4'
+    title: 'Stole the show',
+    author: 'Kygo'
+  },
+  {
+    id: crypto.randomUUID(),
+    title: 'The nights',
+    author: 'Avicii'
   }
 ]
 
