@@ -1,6 +1,6 @@
-import { playingModes } from "../../constants"
+import { INITIAL_STATE } from "../playerContext"
 
-export const getSong = ({ action = 'NEXT', songId, playlist, playingMode = playingModes[0] }) => {
+export const getSong = ({ action = 'NEXT', songId, playlist, playingMode }) => {
   const songIndex = playlist.findIndex((song) => song.id === songId)
   const current = playlist[songIndex]
   const prev = playlist[songIndex - 1]
@@ -10,13 +10,13 @@ export const getSong = ({ action = 'NEXT', songId, playlist, playingMode = playi
 
   if(action === 'NEXT') {
     if(next && playingMode === 'Replaying one') return current
-    if(!next && playingMode === 'Not replaying') return current
+    if(!next && playingMode === 'Not replaying') return INITIAL_STATE.playing
     if(!next && playingMode === 'Replaying one') return current
     if(!next && playingMode === 'Replaying all') return first
     return next
   } else if(action === 'PREV') {
     if(prev && playingMode === 'Replaying one') return current
-    if(!prev && playingMode === 'Not replaying') return current
+    if(!prev && playingMode === 'Not replaying') return INITIAL_STATE.playing
     if(!prev && playingMode === 'Replaying one') return current
     if(!prev && playingMode === 'Replaying all') return last
     return prev

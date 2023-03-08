@@ -1,7 +1,7 @@
 import { useReducer } from "react"
 import { playingModes } from "../constants"
 import { INITIAL_STATE, PlayerContext } from "./playerContext"
-import { getSong } from "./utils"
+import { getSong } from "./utils/getSong"
 
 const playerReducer = (state, action) => {
   const {type, payload} = action
