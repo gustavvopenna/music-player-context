@@ -9,16 +9,16 @@ export const getSong = ({ action = 'NEXT', songId, playlist, playingMode = playi
   const last = playlist[playlist.length - 1]
 
   if(action === 'NEXT') {
-    if(!next && playingMode === 'Not replaying') return current
-    if(!next && playingMode === 'Replaying all') return first
-    if(!next && playingMode === 'Replaying one') return current
     if(next && playingMode === 'Replaying one') return current
+    if(!next && playingMode === 'Not replaying') return current
+    if(!next && playingMode === 'Replaying one') return current
+    if(!next && playingMode === 'Replaying all') return first
     return next
   } else if(action === 'PREV') {
-    if(!prev && playingMode === 'Not replaying') return current
-    if(!prev && playingMode === 'Replaying all') return last
-    if(!prev && playingMode === 'Replaying one') return current
     if(prev && playingMode === 'Replaying one') return current
+    if(!prev && playingMode === 'Not replaying') return current
+    if(!prev && playingMode === 'Replaying one') return current
+    if(!prev && playingMode === 'Replaying all') return last
     return prev
   }
 }
