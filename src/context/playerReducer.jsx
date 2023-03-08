@@ -12,16 +12,18 @@ const playerReducer = (state, action) => {
       return { ...state, playing: state.playlist[songIndex] }
     }
     case "NEXT_SONG": {
-      const playing = getSong({ action: 'NEXT', songId: payload, playlist: state.playlist, playingMode: state.playingMode })
+      const { playingMode, playlist } = state
+      const playing = getSong({ action: 'NEXT', songId: payload, playlist, playingMode })
       return { ...state, playing }
     }
     case "PREV_SONG": {
-      const playing = getSong({ action: 'PREV', songId: payload, playlist: state.playlist, playingMode: state.playingMode })
+      const { playingMode, playlist } = state
+      const playing = getSong({ action: 'PREV', songId: payload, playlist, playingMode })
       return { ...state, playing }
     }
     case "CHANGE_MODE": {
-      const currentMode = playingModes.findIndex(mode => mode === payload)
-      const newMode = playingModes[currentMode + 1] || playingModes[0]
+      const playingModeIndex = playingModes.findIndex(mode => mode === payload)
+      const newMode = playingModes[playingModeIndex + 1] || playingModes[0]
       return { ...state, playingMode: newMode }
     }
     default:
